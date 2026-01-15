@@ -1,20 +1,12 @@
-<!doctype html>
-<html>
-<head>
-  <meta charset="utf-8" />
-  <title>{{ title }}</title>
-</head>
-<body>
-  <h1>{{ title }}</h1>
-  <p><b>Número total de respuestas:</b> {{ total_responses }}</p>
+<p><b>Número total de respuestas:</b> {{ total_responses }}</p>
 
-  <h3>Últimos registros</h3>
-  <ul>
+<h2>Últimos registros</h2>
+<ul>
+  {% if latest %}
     {% for item in latest %}
-      <li>{{ item.name }} - {{ item.email }} - {{ item.timestamp }}</li>
-    {% empty %}
-      <li>No hay datos.</li>
+      <li>{{ item.name }} — {{ item.email }} — {{ item.timestamp }}</li>
     {% endfor %}
-  </ul>
-</body>
-</html>
+  {% else %}
+    <li>No hay datos.</li>
+  {% endif %}
+</ul>
