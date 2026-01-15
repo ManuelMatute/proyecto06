@@ -1,19 +1,20 @@
 from django.shortcuts import render
-from django.conf import settings
-import requests
+from firebase_admin import db
+
+LANDING_COLLECTION = "leads"
 
 def index(request):
-    total_responses = 0
-    latest = []
+    data_dict = db.reference(LANDING_COLLECTION).get() or {}
 
-    try:
-        resp = requests.get(settings.API_URL, timeout=5)
-        data = resp.json() if resp.status_code == 200 else []
-        total_responses = len(data)
-        latest = data[-5:] if total_responses >= 5 else data
-    except Exception:
-        total_responses = 0
-        latest = []
+    posts = []
+    # Firebase dict: {id: {obj}}
+    for key, value in data_dict.items():
+        if isinstance(value, dict):
+            value["id"] = key
+            posts.append(value)
+
+    total_responses = len(posts)
+    latest = posts[:5]
 
     return render(request, "homepage/index.html", {
         "title": "Landing Dashboard",
