@@ -14,7 +14,7 @@ Backend desarrollado con **Django** y **Django REST Framework (DRF)**, integrand
 
 ---
 
-## Rúbrica 
+## Puntos Importantes 
 
 - `homepage` 
 - `demo_rest_api` 
